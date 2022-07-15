@@ -43,7 +43,7 @@ app.use(bodyParser.json());
 app.use('/api/users', usersRouter);
 
 const io = new Server(server, { cors: {
-    origin: process.env.corsOrigin,
+    origin: '*',
 }})
 
 io.on('connection', (socket) => {
@@ -53,15 +53,13 @@ io.on('connection', (socket) => {
     })
 
     socket.on('addNew', (data) => {
-        allUsers[allUsers.length] = data
-        socket.broadcast.emit('recieve_addNew', allUsers)
+      socket.broadcast.emit('recieve_addNew', data)
     })
     socket.on('update', (data) => {
-        socket.broadcast.emit('recieve_update', data)
-        
+      socket.broadcast.emit('recieve_update', data)  
     })
     socket.on('delete', (data) => {
-        socket.broadcast.emit('recieve_delete', data)
+      socket.broadcast.emit('deletion_id', data)
     })
 
     socket.on('disconnect', () => {

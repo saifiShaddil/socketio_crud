@@ -42,11 +42,16 @@ router.route("/:id").get((req, res) => {
 // to add new user
 router.route("/").post((req, res) => {
   // logic to add new user details
+  if (!req.body.fullname || !req.body.age || !req.body.email || !req.body.gender) {
+    return res.status(400).send({
+      message: "required fields cannot be empty",
+    });
+  }
   const { fullname, email, age, gender } = req.body;
   const newUser = new Users({ fullname, email, age, gender });
   newUser
     .save()
-    .then((result) => res.json(result))
+    .then((result) => res.status(200).json(result))
     .catch((err) => res.status(404).json("Error: " + err));
 });
 
