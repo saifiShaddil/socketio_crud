@@ -3,26 +3,22 @@ const { Schema } = require("mongoose");
 
 let id = 0;
 const UserSchema = new Schema({
-    username: {
+    fullname: {
         type: String,
-        required: true,
-        trim: true,
+        // required: true,
+      },
+      email: {
+        type: String,
+        // required: true,
         unique: true,
-        minlength: 5
-    },
-    email: {
+      },
+      age: {
+        type: Number,
+        
+      },
+      gender: {
         type: String,
-        required: true,
-        trim: true,
-        unique: true
-    },
-    password: {
-        type: String,
-        required: true,
-        trim: true,
-        unique: true,
-        minlength: 8,
-    }
+      }
 }, {
     timestamps: true,
 });

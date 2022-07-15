@@ -42,20 +42,19 @@ router.route("/:id").get((req, res) => {
 // to add new user
 router.route("/").post((req, res) => {
   // logic to add new user details
-  let id = Users.length + 1;
-  const { username, email, password } = req.body;
-  const newUser = new Users({ id, username, email, password });
+  const { fullname, email, age, gender } = req.body;
+  const newUser = new Users({ fullname, email, age, gender });
   newUser
     .save()
-    .then(() => res.json("Added"))
+    .then((result) => res.json(result))
     .catch((err) => res.status(404).json("Error: " + err));
 });
 
 // to upadet the user info
 router.route("/:id").put((req, res) => {
   //logic to update user details
-  if (!req.body.username) {
-    res.status(400).send({
+  if (!req.body.fullname || !req.body.age || !req.body.email || !req.body.gender) {
+    return res.status(400).send({
       message: "required fields cannot be empty",
     });
   }
@@ -63,14 +62,14 @@ router.route("/:id").put((req, res) => {
     .then((user) => {
       if (!user) {
         return res.status(404).send({
-          message: "no user found",
+          message: "No user found",
         });
       }
       res.status(200).send(user);
     })
     .catch((err) => {
       return res.status(404).send({
-        message: "error while updating the post",
+        message: "Error while updating the post",
       });
     });
 })
