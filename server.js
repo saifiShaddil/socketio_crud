@@ -43,7 +43,7 @@ app.use(bodyParser.json());
 app.use('/api/users', usersRouter);
 
 const io = new Server(server, { cors: {
-    origin: '*',
+    origin: process.env.corsOrigin || "*",
 }})
 
 io.on('connection', (socket) => {
