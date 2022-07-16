@@ -45,7 +45,6 @@ app.use(function(req, res, next) {
   next();
 });
 
-
 app.use('/api/users', usersRouter);
 
 const io = new Server(server, { cors: {
