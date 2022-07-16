@@ -7,6 +7,9 @@ const dotenv = require('dotenv');
 const mongoose = require('mongoose');
 const usersRouter = require('./routes/users.route');
 
+// Accessing the path module
+const path = require("path");
+
 dotenv.config();
 
 const app = express();
@@ -19,7 +22,6 @@ app.use(
   })
 )
 
-let allUsers = []
 
 // Connect to the database
 mongoose.connect(process.env.DB_URL)
@@ -45,11 +47,11 @@ app.use(function(req, res, next) {
   next();
 });
 
+
+
 app.use('/api/users', usersRouter);
 
-const io = new Server(server, { cors: {
-    origin: "*",
-}})
+const io = new Server(server)
 
 io.on('connection', (socket) => {
     // console.log(`a user connected ${socket.id}`);
@@ -73,6 +75,13 @@ io.on('connection', (socket) => {
 })
 
 const PORT = process.env.PORT || 4000;
+
+// serveing the static build from reactjs
+app.use(express.static(path.join(__dirname, './client/dist')));
+app.get("*", function (request, response) {
+  response.sendFile(path.resolve(__dirname, "./client/dist", "index.html"));
+});
+
 
 server.listen(PORT , () => {
     console.log(`Server is running at http://localhost:${PORT}`);

@@ -4,13 +4,18 @@
   "description": "server for crud socket connection",
   "main": "server.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "nodemon server.js"
+    "build": "cd client && npm run build",
+    "install-client": "cd client && npm install",
+    "start-client": "cd client && npm dev",
+    "server": "nodemon server.js",
+    "dev": "concurrently --kill-others-on-fail \"npm run server\" \"npm run dev --prefix client\"",
+    "start": "concurrently --kill-others-on-fail \"npm run server\" \"npm run dev --prefix client\""
   },
   "author": "Shaddil_saifi",
   "license": "MIT",
   "dependencies": {
     "body-parser": "^1.20.0",
+    "concurrently": "^7.2.2",
     "cors": "^2.8.5",
     "dotenv": "^16.0.1",
     "express": "^4.18.1",
