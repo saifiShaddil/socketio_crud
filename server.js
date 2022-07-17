@@ -24,7 +24,7 @@ app.use(
 
 
 // Connect to the database
-mongoose.connect(process.env.MONGODB_URI)
+mongoose.connect(process.env.MONGODB_URI || 'mongodb://localhost:27017/records')
 
 let db = mongoose.connection;
 
