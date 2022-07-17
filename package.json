@@ -4,12 +4,7 @@
   "description": "server for crud socket connection",
   "main": "server.js",
   "scripts": {
-    "build": "cd client && npm run build",
-    "install-client": "cd client && npm install",
-    "start-client": "cd client && npm dev",
-    "server": "nodemon server.js",
-    "dev": "concurrently --kill-others-on-fail \"npm run server\" \"npm run dev --prefix client\"",
-    "start": "concurrently --kill-others-on-fail \"npm run server\" \"npm run dev --prefix client\""
+    "start": "nodemon server.js"
   },
   "author": "Shaddil_saifi",
   "license": "MIT",
