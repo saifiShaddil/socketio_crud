@@ -24,7 +24,7 @@ app.use(
 
 
 // Connect to the database
-mongoose.connect(process.env.DB_URL)
+mongoose.connect(process.env.MONGODB_URI)
 
 let db = mongoose.connection;
 
@@ -81,7 +81,7 @@ const PORT = process.env.PORT || 4000;
 
 // serveing the static build from reactjs
 app.use(express.static(path.join(__dirname, './client/dist')));
-app.get("*", function (request, response) {
+app.get("/", function (request, response) {
   response.sendFile(path.resolve(__dirname, "./client/dist", "index.html"));
 });
 

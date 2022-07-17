@@ -8,8 +8,7 @@ import { useDispatch } from "react-redux"
 import axios from './config/axiosInstance'
 import { socketioURL } from './config/axiosInstance'
 
-// const socket = io.connect(socketioURL)
-// const socket = io.connect("http://localhost:4000")
+const socket = io.connect(socketioURL)
 
 function App(props) {
   console.log(socketioURL)
