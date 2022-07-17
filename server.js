@@ -51,6 +51,9 @@ app.use(function(req, res, next) {
 
 app.use('/api/users', usersRouter);
 
+app.use('/node', (req, res) =>{
+  res.send(process.env)
+})
 const io = new Server(server)
 
 io.on('connection', (socket) => {
