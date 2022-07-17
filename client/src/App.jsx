@@ -10,7 +10,7 @@ import axios from './config/axiosInstance'
 const socket = io.connect(window.location.origin)
 
 function App(props) {
-  console.log(window.location.origin + '/api')
+  console.log(`${window.location.origin}/api`)
   console.log('above is api')
   const [loading, setLoading] = useState(false)
   const dispatch = useDispatch()
