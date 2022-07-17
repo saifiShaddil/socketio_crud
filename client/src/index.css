@@ -1,0 +1,22 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    overflow: hidden!important;
+}
+.btn-container {
+    margin-top: 2rem ;
+}  
+
+.flex {
+    display: flex;
+}
+.items-center {
+    align-items: center!important;
+}
+.justify-center {
+    justify-content: center!important;
+}
