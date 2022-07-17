@@ -4,7 +4,7 @@ if (import.meta.env.MODE === 'development') {
     axios.defaults.baseURL = 'http://localhost:4000/api'
 }
 if(import.meta.env.MODE === 'production') {
-    axios.defaults.baseURL = import.meta.env.baseURL
+    axios.defaults.baseURL = window.Location.origin + '/api'
 }
 
 const instance = axios.create({
