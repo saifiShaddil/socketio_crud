@@ -6,12 +6,11 @@ import TableUser from "./components/UsersTable"
 import { addUser, getUsers, removeUser, updateUser } from "./store/actions"
 import { useDispatch } from "react-redux"
 import axios from './config/axiosInstance'
-import { socketioURL } from './config/axiosInstance'
 
-const socket = io.connect(socketioURL)
+const socket = io.connect(window.location.origin)
 
 function App(props) {
-  console.log(socketioURL)
+  console.log(window.location.origin, "socketio")
   console.log(import.meta.env)
   const [loading, setLoading] = useState(false)
   const dispatch = useDispatch()
