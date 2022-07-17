@@ -9,7 +9,7 @@ if(import.meta.env.MODE === 'production') {
     axios.defaults.baseURL = 'http://localhost:4000/api'
 }
 
-export const socketioURL = import.meta.env.MODE === 'production' ? 'http://localhost:4000' : window.location.origin 
+export const socketioURL = import.meta.env.MODE === 'production' ? window.location.origin : 'http://localhost:4000' 
 const instance = axios.create({
     headers: {
         'Content-Type': 'application/json',
