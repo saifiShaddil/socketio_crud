@@ -1,16 +1,16 @@
 const router = require("express").Router();
 const express = require("express");
-const Users = require("../models/users.model");
+const Posts = require("../models/posts.model");
 
 router.use(express.json());
 
-// to show all the users
+// to show all the post
 router.route("/").get((req, res) => {
   // logic to get user details
-  Users.find()
-    .sort({ fullname: -1 })
-    .then((users) => {
-      res.status(200).send(users);
+  Posts.find()
+    .sort({ createdAt: -1 })
+    .then((post) => {
+      res.status(200).send(post);
     })
     .catch((err) => {
       res.status(500).send({
@@ -19,17 +19,17 @@ router.route("/").get((req, res) => {
     });
 });
 
-// show user according to their id's
+// show post according to their id's
 router.route("/:id").get((req, res) => {
-  // logic to get user details
-  Users.findById(req.params.id)
-    .then((user) => {
-      if (!user) {
+  // logic to get post details
+  Posts.findById(req.params.id)
+    .then((post) => {
+      if (!post) {
         return res.status(404).send({
-          message: "User not found with id " + req.params.id,
+          message: "Post not found with id " + req.params.id,
         });
       }
-      res.status(200).send(user);
+      res.status(200).send(post);
       // console.log(user);
     })
     .catch((err) => {
@@ -39,35 +39,35 @@ router.route("/:id").get((req, res) => {
     });
 });
 
-// to add new user
+// to add new post
 router.route("/").post((req, res) => {
-  // logic to add new user details
-  if (!req.body.fullname || !req.body.age || !req.body.email || !req.body.gender) {
+  // logic to add new post details
+  if (!req.body.title || !req.body.price || !req.body.image) {
     return res.status(400).send({
-      message: "required fields cannot be empty",
+      message: "Title, Image and Price are required",
     });
   }
-  const { fullname, email, age, gender } = req.body;
-  const newUser = new Users({ fullname, email, age, gender });
-  newUser
+  const { title, description, price, tag, image } = req.body
+  const newPost = new Posts({ title, description, price, tag, image });
+  newPost
     .save()
     .then((result) => res.status(200).json(result))
     .catch((err) => res.status(404).json("Error: " + err));
 });
 
-// to upadet the user info
+// to upadet the post info
 router.route("/:id").put((req, res) => {
-  //logic to update user details
-  if (!req.body.fullname || !req.body.age || !req.body.email || !req.body.gender) {
+  //logic to update post details
+  if (!req.body.title || !req.body.image || !req.body.price) {
     return res.status(400).send({
-      message: "required fields cannot be empty",
+      message: "Title, Image and Price are required",
     });
   }
-  Users.findByIdAndUpdate(req.params.id, req.body, { new: true })
-    .then((user) => {
-      if (!user) {
+  Posts.findByIdAndUpdate(req.params.id, req.body, { new: true })
+    .then((post) => {
+      if (!post) {
         return res.status(404).send({
-          message: "No user found",
+          message: "No Post found",
         });
       }
       res.status(200).send(user);
@@ -80,19 +80,19 @@ router.route("/:id").put((req, res) => {
 })
 
 router.route("/:id").delete((req, res) => {
-  //logic to update user details
-  Users.findByIdAndRemove(req.params.id)
-    .then((user) => {
-      if (!user) {
+  //logic to update post details
+  Posts.findByIdAndRemove(req.params.id)
+    .then((post) => {
+      if (!post) {
         return res.status(404).send({
-          message: "User not found ",
+          message: "Post not found",
         });
       }
-      res.send({ message: "User deleted successfully!" });
+      res.send({ message: "Post deleted successfully!" });
     })
     .catch((err) => {
       return res.status(500).send({
-        message: "Could not delete user ",
+        message: "Could not delete Post",
       });
     });
 });

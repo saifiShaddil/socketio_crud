@@ -6,6 +6,7 @@ const cors = require('cors');
 const dotenv = require('dotenv');
 const mongoose = require('mongoose');
 const usersRouter = require('./routes/users.route');
+const postsRoutes = require('./routes/posts.route');
 
 // Accessing the path module
 const path = require("path");
@@ -50,6 +51,7 @@ app.use(function(req, res, next) {
 
 
 app.use('/api/users', usersRouter);
+app.use('/api/posts', postsRoutes);
 
 const io = new Server(server)
 

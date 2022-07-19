@@ -1,7 +1,6 @@
 const mongoose = require('mongoose');
 const { Schema } = require("mongoose");
 
-let id = 0;
 const UserSchema = new Schema({
     fullname: {
         type: String,
