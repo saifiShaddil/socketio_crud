@@ -52,7 +52,7 @@ router.route("/").post((req, res) => {
   newPost
     .save()
     .then((result) => res.status(200).json(result))
-    .catch((err) => res.status(404).json("Error: " + err));
+    .catch((err) => res.status(404).json("Error: " + err.message));
 });
 
 // to upadet the post info
@@ -63,6 +63,7 @@ router.route("/:id").put((req, res) => {
       message: "Title, Image and Price are required",
     });
   }
+
   Posts.findByIdAndUpdate(req.params.id, req.body, { new: true })
     .then((post) => {
       if (!post) {
@@ -70,11 +71,11 @@ router.route("/:id").put((req, res) => {
           message: "No Post found",
         });
       }
-      res.status(200).send(user);
+      res.status(200).send(post);
     })
     .catch((err) => {
       return res.status(404).send({
-        message: "Error while updating the post",
+        message: err.message || "Error while updating the post",
       });
     });
 })
@@ -92,7 +93,7 @@ router.route("/:id").delete((req, res) => {
     })
     .catch((err) => {
       return res.status(500).send({
-        message: "Could not delete Post",
+        message: err.message || "Could not delete Post",
       });
     });
 });
