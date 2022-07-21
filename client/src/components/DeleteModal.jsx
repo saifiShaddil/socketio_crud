@@ -4,9 +4,11 @@ import axios from "../config/axiosInstance"
 
 function DeleteModal(props) {
   const [open, setOpen] = useState(false)
+  const [loading, setLoading] = useState(false)
   const id = props.user._id
 
   const handleDelete = () => {
+    setLoading(true)
     axios.delete("/users/" + id)
       .then((res) => {
         if(res.status !== 200){
@@ -15,10 +17,14 @@ function DeleteModal(props) {
         return res.data
       })
       .then((result) => {
+        setLoading(false)
         props.onUserDeleted(id)
         setOpen(false)
       })
-      .catch((err) => console.log(err))
+      .catch((err) => {
+        setLoading(false)
+        console.log(err)
+      })
    
   }
   return (
@@ -41,7 +47,7 @@ function DeleteModal(props) {
         <Button color="red" onClick={() => setOpen(false)}>
           <Icon name="remove" /> No
         </Button>
-        <Button color="green" onClick={handleDelete}>
+        <Button loading={loading} color="green" onClick={handleDelete}>
           <Icon name="checkmark" /> Yes
         </Button>
       </Modal.Actions>

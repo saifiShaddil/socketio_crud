@@ -8,7 +8,7 @@ import { socket } from "../config/axiosInstance"
 import Layout from "../components/Layout"
 
 const AllUsers = ({ users }) => {
-  const [loading, setLoading] = useState(false)
+    const [placeholder, setPlaceholder] = useState(true)
   const dispatch = useDispatch()
 
   const handleUserUpdated = (user, type) => {
@@ -37,10 +37,11 @@ const AllUsers = ({ users }) => {
         return res.data
       })
       .then((result) => {
-        setLoading(false)
+        setPlaceholder(false)
         dispatch(getUsers(result))
       })
       .catch((err) => {
+        setPlaceholder(false)
         console.log(err)
       })
   }, [])
@@ -62,7 +63,7 @@ const AllUsers = ({ users }) => {
       <TableUser
         onUserUpdated={handleUserUpdated}
         onUserDeleted={handleUserDeleted}
-        loading={loading}
+        placeholder={placeholder}
       />
       { users && users.length > 0 && <PaginationComponent />}
     </Layout>

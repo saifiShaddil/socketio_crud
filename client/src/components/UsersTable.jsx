@@ -63,8 +63,12 @@ const TableUser = (props) => {
          </Table.Row>
        </Table.Header>
        <Table.Body>
-         {users}
-       </Table.Body>
+        {props.placeholder ? (
+          <Loading />
+        ) : (
+          users
+        )}
+        </Table.Body>
      </Table>
     </>
   )
